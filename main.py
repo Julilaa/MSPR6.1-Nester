@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 
 app = Flask(__name__)
 
@@ -13,7 +13,8 @@ def receive_scan():
 
 @app.route('/scans', methods=['GET'])
 def get_scans():
-    return jsonify(scans), 200
+    return render_template('scans.html', scans=scans)
+    #return jsonify(scans), 200
 
 if __name__ == '__main__':
     app.run(debug=True)
