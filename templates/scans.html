@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scans Réseau</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h2>Résultats des Scans Réseau</h2>
+    <table>
+        <tr>
+            <th>Adresse IP</th>
+            <th>Nom de la machine</th>
+            <th>Adresse MAC</th>
+            <th>Ports ouverts</th>
+        </tr>
+        {% for scan in scans %}
+        <tr>
+            <td>{{ scan.host_info }}</td>
+            <!-- Ajoutez d'autres colonnes ici si nécessaire -->
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
