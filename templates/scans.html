@@ -9,6 +9,94 @@
         h2 { color: #333; text-align: center; margin-top: 20px; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; cursor: pointer; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Résultats des Scans Réseau</h2>
+        <table id="resultsTable">
+            <thead>
+                <tr>
+                    <th onclick="sortTable(0)">Adresse IP <span class="sort-arrow">&#x25BC;</span></th>
+                    <th onclick="sortTable(1)">Nom de la machine <span class="sort-arrow">&#x25BC;</span></th>
+                    <th onclick="sortTable(2)">Adresse MAC <span class="sort-arrow">&#x25BC;</span></th>
+                    <th onclick="sortTable(3)">Ports ouverts <span class="sort-arrow">&#x25BC;</span></th>
+                    <th onclick="sortTable(4)">Latence <span class="sort-arrow">&#x25BC;</span></th>
+                    <th onclick="sortTable(5)">CPU utilisé (%) <span class="sort-arrow">&#x25BC;</span></th>
+                    <th onclick="sortTable(6)">Mémoire utilisée (%) <span class="sort-arrow">&#x25BC;</span></th>
+                    <th onclick="sortTable(7)">Disque utilisé (%) <span class="sort-arrow">&#x25BC;</span></th>
+                    <th onclick="sortTable(8)">Utilisateurs connectés <span class="sort-arrow">&#x25BC;</span></th>
+                    <th onclick="sortTable(9)">Batterie (%) <span class="sort-arrow">&#x25BC;</span></th>
+                    <th onclick="sortTable(10)">Nombre de processus <span class="sort-arrow">&#x25BC;</span></th>
+                    <th onclick="sortTable(11)">Heure du scan <span class="sort-arrow">&#x25BC;</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for scan in scans %}
+                <tr>
+                    <td>{{ scan['Adresse IP'] }}</td>
+                    <td>{{ scan['Nom de la machine'] }}</td>
+                    <td>{{ scan['Adresse MAC'] }}</td>
+                    <td>{{ scan['Ports ouverts'] | join(', ') }}</td>
+                    <td>{{ scan['Latence'] }}</td>
+                    <td>{{ scan['CPU utilisé (%)'] }}</td>
+                    <td>{{ scan['Mémoire utilisée (%)'] }}</td>
+                    <td>{{ scan['Disque utilisé (%)'] }}</td>
+                    <td>{{ scan['Utilisateurs connectés'] | join(', ') }}</td>
+                    <td>{{ scan['Batterie (%)'] }}</td>
+                    <td>{{ scan['Nombre de processus'] }}</td>
+                    <td>{{ scan['Heure du scan'] }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="12">Aucun résultat trouvé.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function sortTable(column) {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("resultsTable");
+            switching = true;
+            while (switching) {
+                switching = false;
+                rows = table.getElementsByTagName("TR");
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("TD")[column];
+                    y = rows[i + 1].getElementsByTagName("TD")[column];
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+<!--<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Résultats des Scans Réseau</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
+        .container { width: 80%; margin: auto; overflow: hidden; }
+        h2 { color: #333; text-align: center; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
         th { background-color: #f2f2f2; }
         tr:nth-child(even) { background-color: #f9f9f9; }
     </style>
@@ -22,7 +110,14 @@
                 <th>Nom de la machine</th>
                 <th>Adresse MAC</th>
                 <th>Ports ouverts</th>
-                <th>Heure du scan</th> <!-- Nouvelle colonne pour l'heure du scan -->
+                <th>Latence</th>
+                <th>CPU utilisé (%)</th>
+                <th>Mémoire utilisée (%)</th>
+                <th>Disque utilisé (%)</th>
+                <th>Utilisateurs connectés</th>
+                <th>Batterie (%)</th>
+                <th>Nombre de processus</th>
+                <th>Heure du scan</th>
             </tr>
             {% for scan in scans %}
             <tr>
@@ -30,18 +125,24 @@
                 <td>{{ scan['Nom de la machine'] }}</td>
                 <td>{{ scan['Adresse MAC'] }}</td>
                 <td>{{ scan['Ports ouverts'] | join(', ') }}</td>
-                <td>{{ scan['Heure du scan'] }}</td> <!-- Afficher l'heure du scan -->
+                <td>{{ scan['Latence'] }}</td>
+                <td>{{ scan['CPU utilisé (%)'] }}</td>
+                <td>{{ scan['Mémoire utilisée (%)'] }}</td>
+                <td>{{ scan['Disque utilisé (%)'] }}</td>
+                <td>{{ scan['Utilisateurs connectés'] | join(', ') }}</td>
+                <td>{{ scan['Batterie (%)'] }}</td>
+                <td>{{ scan['Nombre de processus'] }}</td>
+                <td>{{ scan['Heure du scan'] }}</td>
             </tr>
             {% else %}
             <tr>
-                <td colspan="5">Aucun résultat trouvé.</td> <!-- Mettre à jour le colspan -->
+                <td colspan="12">Aucun résultat trouvé.</td>
             </tr>
             {% endfor %}
         </table>
     </div>
 </body>
-</html>
-
+</html> -->
 
 <!-- <!DOCTYPE html>
 <html lang="en">
