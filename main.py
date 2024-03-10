@@ -1,4 +1,6 @@
-from flask import Flask, request, jsonify, render_template, redirect, url_for, make_response
+from flask import Flask, request, jsonify, render_template, redirect, url_for, make_response, send_file
+import json
+import os
 
 app = Flask(__name__)
 
@@ -42,6 +44,23 @@ def get_scans():
     if not is_logged_in():
         return redirect(url_for('login'))
     return render_template('scans.html', scans=scans)
+
+@app.route('/download-json', methods=['GET'])
+def download_json():
+    # `scans` contient les résultats des scans
+    data = scans
+    json_file = "scans.json"  # Nom du fichier JSON à créer
+
+    # Chemin où le fichier JSON sera temporairement enregistré
+    temp_path = os.path.join('temp', json_file)
+    os.makedirs(os.path.dirname(temp_path), exist_ok=True)
+
+    # Écrire les données dans un fichier JSON
+    with open(temp_path, 'w') as f:
+        json.dump(data, f, indent=4)
+
+    # Envoyer le fichier au navigateur
+    return send_file(temp_path, as_attachment=True, download_name=json_file)
 
 if __name__ == '__main__':
     app.run(debug=True)
