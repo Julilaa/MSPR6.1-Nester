@@ -69,8 +69,8 @@ def download_json():
 
     return send_file(temp_path, as_attachment=True, download_name=json_file)  # Envoie le fichier JSON au client.
 
-# if __name__ == '__main__':
-#     app.run(debug=True)  # Lance l'application en mode debug.
-
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(debug=True)  # Lance l'application en mode debug.
+
+# if __name__ == '__main__':
+#     app.run(host='0.0.0.0', port=5000, debug=True)

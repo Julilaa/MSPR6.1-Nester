@@ -1,48 +1,26 @@
 [
     {
-        "Adresse IP": "192.168.88.1",
-        "Nom de la machine": "UTILISA-KT8ECMV",
+        "Adresse IP": "10.60.120.10",
+        "Nom de la machine": "MSI",
         "Adresse MAC": "N/A",
         "Ports ouverts": [
             135,
             139,
             445,
+            902,
+            912,
             5357,
             7070
         ],
         "Latence": "N/A",
-        "Heure du scan": "2024-03-10 17:08:46",
-        "CPU utilis\u00e9 (%)": 1.6,
-        "M\u00e9moire utilis\u00e9e (%)": 37.0,
-        "Disque utilis\u00e9 (%)": 1.0,
+        "Heure du scan": "2024-03-15 09:15:30",
+        "CPU utilis\u00e9 (%)": 12.5,
+        "M\u00e9moire utilis\u00e9e (%)": 70.7,
+        "Disque utilis\u00e9 (%)": 30.6,
         "Utilisateurs connect\u00e9s": [
-            "Utilisateur"
+            "USER"
         ],
-        "Batterie (%)": "N/A",
-        "Nombre de processus": 324
-    },
-    {
-        "Adresse IP": "172.20.10.1",
-        "Nom de la machine": "172.20.10.1",
-        "Adresse MAC": "72:22:FE:7B:E3:64",
-        "Ports ouverts": [
-            21,
-            53,
-            62078
-        ],
-        "Heure du scan": "2024-03-10 17:14:21"
-    },
-    {
-        "Adresse IP": "172.20.10.14",
-        "Nom de la machine": "UTILISA-KT8ECMV",
-        "Adresse MAC": "N/A",
-        "Ports ouverts": [
-            135,
-            139,
-            445,
-            5357,
-            7070
-        ],
-        "Heure du scan": "2024-03-10 17:14:21"
+        "Batterie (%)": 100,
+        "Nombre de processus": 274
     }
 ]
